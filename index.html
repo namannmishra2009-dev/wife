@@ -36,13 +36,6 @@ z-index:2
 h1,h2,h3{text-shadow:0 0 10px rgba(255,182,193,.8)}
 p{max-width:700px;margin:0 auto 20px;font-size:1.1rem}
 
-input{
-padding:12px;
-width:260px;
-border-radius:8px;
-border:none;
-text-align:center
-}
 button{
 margin-top:20px;
 padding:12px 30px;
@@ -104,12 +97,12 @@ border-radius:50%
 100%{transform:translateY(-110vh) rotate(45deg);opacity:0}
 }
 
-/* MUSIC BUTTON */
+/* MUSIC */
 #musicToggle{
 position:fixed;
 top:15px;
 right:15px;
-display:none;
+display:block;
 background:rgba(0,0,0,.4);
 padding:10px;
 border-radius:50%;
@@ -117,40 +110,14 @@ cursor:pointer;
 z-index:7
 }
 
-/* SUMMARY */
-.summary{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-margin-top:40px
-}
-.card{
-background:rgba(255,255,255,.15);
-border-radius:20px;
-padding:20px
-}
-
-/* POEM ANIMATION */
+/* POEM */
 .poem p{
 opacity:0;
 transform:translateY(15px);
 animation:poemLine 1s ease forwards
 }
-.poem p:nth-child(1){animation-delay:.5s}
-.poem p:nth-child(2){animation-delay:1.5s}
-.poem p:nth-child(3){animation-delay:2.5s}
-.poem p:nth-child(4){animation-delay:3.5s}
-.poem p:nth-child(5){animation-delay:4.5s}
-.poem p:nth-child(6){animation-delay:5.5s}
-.poem p:nth-child(7){animation-delay:6.5s}
-.poem p:nth-child(8){animation-delay:7.5s}
-.poem p:nth-child(9){animation-delay:8.5s}
-.poem p:nth-child(10){animation-delay:9.5s}
-.poem p:nth-child(11){animation-delay:10.5s}
-
-@keyframes poemLine{
-to{opacity:1;transform:translateY(0)}
-}
+.poem p:nth-child(n){animation-delay:calc(var(--i)*1s)}
+@keyframes poemLine{to{opacity:1;transform:none}}
 </style>
 </head>
 
@@ -159,61 +126,52 @@ to{opacity:1;transform:translateY(0)}
 <audio id="bgMusic" loop></audio>
 <div id="musicToggle">🎵</div>
 
-<section class="section active" id="page0">
-<h1>❤️</h1>
-<p>Type to unlock</p>
-<input id="nameInput">
-<br>
-<button onclick="checkName()">Open</button>
-<div id="nameMsg"></div>
+<!-- PAGE 0 -->
+<section class="section active" id="page0" data-music="music/start.mp3">
+<h1>❤️ Welcome ❤️</h1>
+<p>Just click next…</p>
+<button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page1" data-music="music/rose.mp3">
 <h2>Rose Day 🌹</h2>
 <img src="gifs/rose.gif">
-<img src="images/rose.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page2" data-music="music/propose.mp3">
 <h2>Propose Day 💌</h2>
 <img src="gifs/propose.gif">
-<img src="images/propose.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page3" data-music="music/chocolate.mp3">
 <h2>Chocolate Day 🍫</h2>
 <img src="gifs/chocolate.gif">
-<img src="images/chocolate.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page4" data-music="music/teddy.mp3">
 <h2>Teddy Day 🧸</h2>
 <img src="gifs/teddy.gif">
-<img src="images/teddy.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page5" data-music="music/promise.mp3">
 <h2>Promise Day 🤝</h2>
 <img src="gifs/promise.gif">
-<img src="images/promise.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page6" data-music="music/hug.mp3">
 <h2>Hug Day 🤗</h2>
 <img src="gifs/hug.gif">
-<img src="images/hug.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
 <section class="section" id="page7" data-music="music/kiss.mp3">
 <h2>Kiss Day 💋</h2>
 <img src="gifs/kiss.gif">
-<img src="images/kiss.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
@@ -221,62 +179,37 @@ to{opacity:1;transform:translateY(0)}
 <h1>Valentine’s Day ❤️</h1>
 
 <div class="poem">
-<p>Jhansi…</p>
-<p>Jab tum muskurati ho na,<br>toh main thoda sa chup ho jaata hoon.</p>
-<p>Tumhari aankhon mein dekh kar,<br>dil har baar bhatak jaata hai.</p>
-<p>Main perfect nahi hoon,<br>par tumhare saath sachcha ho jaata hoon.</p>
-<p>Aaj bhi tumhara naam lene mein,<br>thodi si sharam aa jaati hai.</p>
-<p>Par sach yeh hai,<br>tum hi meri sabse khoobsurat aadat ho.</p>
-<p>Kal bhi tum,<br>aaj bhi tum.</p>
-<p>Aur jab zindagi thak jaaye,<br>tab bhi sirf tum ❤️</p>
-</div>
-
-<h2 style="margin-top:40px">Our Valentine Week 💖</h2>
-<div class="summary">
-<div class="card"><h3>Rose 🌹</h3><img src="images/rose.jpg"></div>
-<div class="card"><h3>Propose 💌</h3><img src="images/propose.jpg"></div>
-<div class="card"><h3>Chocolate 🍫</h3><img src="images/chocolate.jpg"></div>
-<div class="card"><h3>Teddy 🧸</h3><img src="images/teddy.jpg"></div>
-<div class="card"><h3>Promise 🤝</h3><img src="images/promise.jpg"></div>
-<div class="card"><h3>Hug 🤗</h3><img src="images/hug.jpg"></div>
-<div class="card"><h3>Kiss 💋</h3><img src="images/kiss.jpg"></div>
-<div class="card"><h3>Valentine ❤️</h3><img src="images/valentine.jpg"></div>
+<p style="--i:1">Jhansi…</p>
+<p style="--i:2">Tumhari aankhon se nazar hataana mushkil hota hai</p>
+<p style="--i:3">Aur dil… har baar haar jaata hai</p>
+<p style="--i:4">Tum paas hoti ho toh main thoda sharma jaata hoon</p>
+<p style="--i:5">Tum door hoti ho toh sab adhoora lagta hai</p>
+<p style="--i:6">Main perfect nahi hoon</p>
+<p style="--i:7">Par tumhare liye hamesha sachcha hoon</p>
+<p style="--i:8">Aaj bhi, kal bhi</p>
+<p style="--i:9">Sirf tum ❤️</p>
 </div>
 </section>
 
 <script>
 let currentPage=0;
-let userPaused=false;
+let paused=false;
 const music=document.getElementById("bgMusic");
-
-function checkName(){
-const v=document.getElementById("nameInput").value.toLowerCase().trim();
-if(v==="jhansi rani mishra"){
-showPage(1);
-document.getElementById("musicToggle").style.display="block";
-}else document.getElementById("nameMsg").innerText="Not this ❤️";
-}
 
 function showPage(i){
 document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-const page=document.getElementById("page"+i);
-page.classList.add("active");
+const p=document.getElementById("page"+i);
+p.classList.add("active");
 currentPage=i;
-handleMusic(page);
+if(p.dataset.music){
+music.src=p.dataset.music;
+if(!paused) music.play().catch(()=>{});
 }
-
+}
 function nextPage(){showPage(currentPage+1)}
 
-function handleMusic(page){
-const src=page.dataset.music;
-if(!src) return;
-music.src=src;
-if(!userPaused) music.play().catch(()=>{});
-}
-
 document.getElementById("musicToggle").onclick=()=>{
-if(music.paused){music.play();userPaused=false}
-else{music.pause();userPaused=true}
+music.paused?(music.play(),paused=false):(music.pause(),paused=true)
 };
 
 document.addEventListener("click",e=>{
