@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You ❤️</title>
 
 <style>
@@ -16,7 +16,8 @@ body {
   overflow-x: hidden;
   background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
   background-size: 400% 400%;
-  animation: bgMove 15s ease infinite;
+  animation: bgMove 30s ease infinite;
+  position: relative;
 }
 @keyframes bgMove {
   0% { background-position: 0% 50%; }
@@ -32,8 +33,16 @@ body {
 }
 .section.active { display: block; }
 
-h1, h2 { margin-bottom: 15px; }
-p { max-width: 600px; margin: 0 auto 20px; font-size: 1.1rem; }
+h1, h2 { 
+  margin-bottom: 15px; 
+  text-shadow: 0 0 8px rgba(255, 182, 193, 0.6);
+}
+p { 
+  max-width: 600px; 
+  margin: 0 auto 20px; 
+  font-size: 1.1rem; 
+  text-shadow: 0 0 6px rgba(255, 182, 193, 0.5);
+}
 
 input {
   padding: 12px;
@@ -63,7 +72,6 @@ button:disabled {
   color: #ffe6ec;
 }
 
-/* ========== MEDIA ========== */
 .day-gif, .memory-photo {
   max-width: 280px;
   width: 90%;
@@ -84,6 +92,22 @@ button:disabled {
   100% { opacity: 0; transform: translateY(-120px) scale(1.6); }
 }
 
+/* ========== BACKGROUND HEARTS/GLITTER ========== */
+.bg-heart {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  animation: floatHeart 6s linear infinite;
+  pointer-events: none;
+}
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-600px) scale(0.8); opacity: 0; }
+}
+
 /* Music toggle */
 #musicToggle {
   position: fixed;
@@ -101,8 +125,7 @@ button:disabled {
 
 <!-- MUSIC (ADD YOUR FILE HERE) -->
 <audio id="bgMusic" loop>
-  <!-- ADD MUSIC FILE HERE -->
-  <!-- <source src="music/love.mp3" type="audio/mpeg"> -->
+  <source src="music/love.mp3" type="audio/mpeg">
 </audio>
 <div id="musicToggle">🎵</div>
 
@@ -117,97 +140,72 @@ button:disabled {
 </section>
 
 <!-- TEMPLATE FOR DAY PAGES -->
-<!-- PAGE 2 : ROSE DAY -->
 <section class="section" id="page1" data-date="2026-02-07">
   <h2>February 7 — Rose Day 🌹</h2>
   <p>A soft beginning…</p>
-
   <!-- ADD ROSE GIF HERE -->
   <!-- <img src="gifs/rose.gif" class="day-gif"> -->
-
   <!-- ADD HER PHOTO HERE -->
   <!-- <img src="images/day1.jpg" class="memory-photo"> -->
-
   <button onclick="nextPage()">Next</button>
   <div class="lock-msg"></div>
 </section>
 
-<!-- PAGE 3 : PROPOSE DAY -->
 <section class="section" id="page2" data-date="2026-02-08">
   <h2>February 8 — Propose Day 💌</h2>
   <p>Every day, I choose you.</p>
-
   <!-- ADD GIF HERE -->
   <!-- <img src="gifs/propose.gif" class="day-gif"> -->
-
   <!-- ADD HER PHOTO HERE -->
   <!-- <img src="images/day2.jpg" class="memory-photo"> -->
-
   <button onclick="nextPage()">Next</button>
   <div class="lock-msg"></div>
 </section>
 
-<!-- PAGE 4 : CHOCOLATE DAY -->
 <section class="section" id="page3" data-date="2026-02-09">
   <h2>February 9 — Chocolate Day 🍫</h2>
   <p>Sweet, just like you.</p>
-
   <!-- ADD GIF HERE -->
   <!-- <img src="gifs/chocolate.gif" class="day-gif"> -->
-
   <!-- ADD HER PHOTO HERE -->
   <!-- <img src="images/day3.jpg" class="memory-photo"> -->
-
   <button onclick="nextPage()">Next</button>
   <div class="lock-msg"></div>
 </section>
 
-<!-- PAGE 5 : TEDDY DAY -->
 <section class="section" id="page4" data-date="2026-02-10">
   <h2>February 10 — Teddy Day 🧸</h2>
   <p>Your comfort is my home.</p>
-
   <!-- ADD GIF HERE -->
   <!-- <img src="gifs/teddy.gif" class="day-gif"> -->
-
   <!-- ADD HER PHOTO HERE -->
   <!-- <img src="images/day4.jpg" class="memory-photo"> -->
-
   <button onclick="nextPage()">Next</button>
   <div class="lock-msg"></div>
 </section>
 
-<!-- PAGE 6 : PROMISE DAY -->
 <section class="section" id="page5" data-date="2026-02-11">
   <h2>February 11 — Promise Day 🤝</h2>
   <p>I promise, always.</p>
-
   <!-- ADD GIF HERE -->
   <!-- <img src="gifs/promise.gif" class="day-gif"> -->
-
   <!-- ADD HER PHOTO HERE -->
   <!-- <img src="images/day5.jpg" class="memory-photo"> -->
-
   <button onclick="nextPage()">Next</button>
   <div class="lock-msg"></div>
 </section>
 
-<!-- PAGE 7 : KISS DAY -->
 <section class="section" id="page6" data-date="2026-02-13">
   <h2>February 13 — Kiss Day 💋</h2>
   <p>Quiet moments, deep feelings.</p>
-
   <!-- ADD GIF HERE -->
   <!-- <img src="gifs/kiss.gif" class="day-gif"> -->
-
   <!-- ADD HER PHOTO HERE -->
   <!-- <img src="images/day6.jpg" class="memory-photo"> -->
-
   <button onclick="nextPage()">Next</button>
   <div class="lock-msg"></div>
 </section>
 
-<!-- PAGE 8 : VALENTINE -->
 <section class="section" id="page7" data-date="2026-02-14">
   <h2>February 14 — Valentine’s Day ❤️</h2>
   <p>Jhansi,</p>
@@ -286,7 +284,7 @@ document.getElementById("musicToggle").onclick = () => {
   else m.pause();
 };
 
-/* ========== HEARTS ON CLICK ========== */
+/* ========== CLICK HEARTS ========== */
 document.addEventListener("click", e => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -296,6 +294,19 @@ document.addEventListener("click", e => {
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 2500);
 });
+
+/* ========== BACKGROUND HEARTS/GLITTER ========== */
+function spawnBackgroundHearts() {
+  const heart = document.createElement("div");
+  heart.className = "bg-heart";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.width = 8 + Math.random()*10 + "px";
+  heart.style.height = heart.style.width;
+  heart.style.animationDuration = 5 + Math.random()*5 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 10000);
+}
+setInterval(spawnBackgroundHearts, 300);
 </script>
 
 </body>
