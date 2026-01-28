@@ -53,7 +53,6 @@ color:#fff;
 font-size:1rem;
 cursor:pointer
 }
-button:disabled{opacity:.5}
 
 img{
 max-width:260px;
@@ -118,14 +117,6 @@ cursor:pointer;
 z-index:7
 }
 
-/* LOCK MESSAGE */
-.lock-msg{
-margin-top:25px;
-font-size:1.1rem;
-color:#fff;
-opacity:.9
-}
-
 /* SUMMARY */
 .summary{
 display:grid;
@@ -156,8 +147,6 @@ animation:poemLine 1s ease forwards
 .poem p:nth-child(9){animation-delay:8.5s}
 .poem p:nth-child(10){animation-delay:9.5s}
 .poem p:nth-child(11){animation-delay:10.5s}
-.poem p:nth-child(12){animation-delay:11.5s}
-.poem p:nth-child(13){animation-delay:12.5s}
 
 @keyframes poemLine{
 to{opacity:1;transform:translateY(0)}
@@ -170,7 +159,6 @@ to{opacity:1;transform:translateY(0)}
 <audio id="bgMusic" loop></audio>
 <div id="musicToggle">🎵</div>
 
-<!-- PAGE 0 -->
 <section class="section active" id="page0">
 <h1>❤️</h1>
 <p>Type to unlock</p>
@@ -180,80 +168,68 @@ to{opacity:1;transform:translateY(0)}
 <div id="nameMsg"></div>
 </section>
 
-<!-- DAY PAGES -->
-<section class="section" id="page1" data-date="2026-02-07" data-music="music/rose.mp3">
+<section class="section" id="page1" data-music="music/rose.mp3">
 <h2>Rose Day 🌹</h2>
 <img src="gifs/rose.gif">
 <img src="images/rose.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page2" data-date="2026-02-08" data-music="music/propose.mp3">
+<section class="section" id="page2" data-music="music/propose.mp3">
 <h2>Propose Day 💌</h2>
 <img src="gifs/propose.gif">
 <img src="images/propose.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page3" data-date="2026-02-09" data-music="music/chocolate.mp3">
+<section class="section" id="page3" data-music="music/chocolate.mp3">
 <h2>Chocolate Day 🍫</h2>
 <img src="gifs/chocolate.gif">
 <img src="images/chocolate.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page4" data-date="2026-02-10" data-music="music/teddy.mp3">
+<section class="section" id="page4" data-music="music/teddy.mp3">
 <h2>Teddy Day 🧸</h2>
 <img src="gifs/teddy.gif">
 <img src="images/teddy.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page5" data-date="2026-02-11" data-music="music/promise.mp3">
+<section class="section" id="page5" data-music="music/promise.mp3">
 <h2>Promise Day 🤝</h2>
 <img src="gifs/promise.gif">
 <img src="images/promise.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page6" data-date="2026-02-12" data-music="music/hug.mp3">
+<section class="section" id="page6" data-music="music/hug.mp3">
 <h2>Hug Day 🤗</h2>
 <img src="gifs/hug.gif">
 <img src="images/hug.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page7" data-date="2026-02-13" data-music="music/kiss.mp3">
+<section class="section" id="page7" data-music="music/kiss.mp3">
 <h2>Kiss Day 💋</h2>
 <img src="gifs/kiss.gif">
 <img src="images/kiss.jpg">
 <button onclick="nextPage()">Next</button>
-<div class="lock-msg"></div>
 </section>
 
-<section class="section" id="page8" data-date="2026-02-14" data-music="music/valentine.mp3">
-<h1>February 14 — Valentine’s Day ❤️</h1>
+<section class="section" id="page8" data-music="music/valentine.mp3">
+<h1>Valentine’s Day ❤️</h1>
 
 <div class="poem">
 <p>Jhansi…</p>
 <p>Jab tum muskurati ho na,<br>toh main thoda sa chup ho jaata hoon.</p>
-<p>Us muskaan ke saamne,<br>meri har baat chhoti lagti hai.</p>
-<p>Main perfect nahi hoon,<br>par tumhare saath real ho jaata hoon.</p>
-<p>Tumhara naam lene mein bhi,<br>aaj bhi thodi si sharam hoti hai.</p>
-<p>Par sach yeh hai,<br>tum hi meri sabse pyaari aadat ho.</p>
-<p>Kal bhi tum chahiye,<br>aaj bhi tum chahiye.</p>
-<p>Aur jab zindagi thak jaaye,<br>tab bhi sirf tum chahiye.</p>
-<p>Sirf Valentine ke din nahi,<br>meri har subah, har raat tum ho.</p>
-<p>Sirf tum… aur main ❤️</p>
+<p>Tumhari aankhon mein dekh kar,<br>dil har baar bhatak jaata hai.</p>
+<p>Main perfect nahi hoon,<br>par tumhare saath sachcha ho jaata hoon.</p>
+<p>Aaj bhi tumhara naam lene mein,<br>thodi si sharam aa jaati hai.</p>
+<p>Par sach yeh hai,<br>tum hi meri sabse khoobsurat aadat ho.</p>
+<p>Kal bhi tum,<br>aaj bhi tum.</p>
+<p>Aur jab zindagi thak jaaye,<br>tab bhi sirf tum ❤️</p>
 </div>
-
-<div class="lock-msg"></div>
 
 <h2 style="margin-top:40px">Our Valentine Week 💖</h2>
 <div class="summary">
@@ -287,7 +263,6 @@ const page=document.getElementById("page"+i);
 page.classList.add("active");
 currentPage=i;
 handleMusic(page);
-checkDateLock(page);
 }
 
 function nextPage(){showPage(currentPage+1)}
@@ -295,29 +270,8 @@ function nextPage(){showPage(currentPage+1)}
 function handleMusic(page){
 const src=page.dataset.music;
 if(!src) return;
-if(music.src.includes(src)) return;
 music.src=src;
 if(!userPaused) music.play().catch(()=>{});
-}
-
-function checkDateLock(page){
-const dateStr=page.dataset.date;
-if(!dateStr) return;
-const now=new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
-const today=new Date(now);
-const unlock=new Date(dateStr+"T00:00:00");
-const msg=page.querySelector(".lock-msg");
-const btn=page.querySelector("button");
-
-if(today<unlock){
-if(btn) btn.disabled=true;
-msg.innerText="Not today ❤️ Come back on "+unlock.toDateString();
-page.querySelectorAll("img,.poem,.summary").forEach(el=>el.style.display="none");
-}else{
-if(btn) btn.disabled=false;
-msg.innerText="";
-page.querySelectorAll("img,.poem,.summary").forEach(el=>el.style.display="block");
-}
 }
 
 document.getElementById("musicToggle").onclick=()=>{
