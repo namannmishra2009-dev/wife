@@ -53,7 +53,6 @@ color:#fff;
 font-size:1rem;
 cursor:pointer
 }
-button:disabled{opacity:.5}
 
 img{
 max-width:260px;
@@ -149,57 +148,57 @@ z-index:6
 <div id="nameMsg"></div>
 </section>
 
-<!-- DAY PAGES (WITH MUSIC) -->
-<section class="section" id="page1" data-date="2026-02-07" data-music="music/rose.mp3">
+<!-- DAY PAGES -->
+<section class="section" id="page1" data-music="music/rose.mp3">
 <h2>Rose Day 🌹</h2>
 <img src="gifs/rose.gif">
 <img src="images/rose.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page2" data-date="2026-02-08" data-music="music/propose.mp3">
+<section class="section" id="page2" data-music="music/propose.mp3">
 <h2>Propose Day 💌</h2>
 <img src="gifs/propose.gif">
 <img src="images/propose.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page3" data-date="2026-02-09" data-music="music/chocolate.mp3">
+<section class="section" id="page3" data-music="music/chocolate.mp3">
 <h2>Chocolate Day 🍫</h2>
 <img src="gifs/chocolate.gif">
 <img src="images/chocolate.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page4" data-date="2026-02-10" data-music="music/teddy.mp3">
+<section class="section" id="page4" data-music="music/teddy.mp3">
 <h2>Teddy Day 🧸</h2>
 <img src="gifs/teddy.gif">
 <img src="images/teddy.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page5" data-date="2026-02-11" data-music="music/promise.mp3">
+<section class="section" id="page5" data-music="music/promise.mp3">
 <h2>Promise Day 🤝</h2>
 <img src="gifs/promise.gif">
 <img src="images/promise.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page6" data-date="2026-02-12" data-music="music/hug.mp3">
+<section class="section" id="page6" data-music="music/hug.mp3">
 <h2>Hug Day 🤗</h2>
 <img src="gifs/hug.gif">
 <img src="images/hug.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page7" data-date="2026-02-13" data-music="music/kiss.mp3">
+<section class="section" id="page7" data-music="music/kiss.mp3">
 <h2>Kiss Day 💋</h2>
 <img src="gifs/kiss.gif">
 <img src="images/kiss.jpg">
 <button onclick="nextPage()">Next</button>
 </section>
 
-<section class="section" id="page8" data-date="2026-02-14" data-music="music/valentine.mp3">
+<section class="section" id="page8" data-music="music/valentine.mp3">
 <h1>Our Valentine Week ❤️</h1>
 <p>Every day, every feeling, always you.</p>
 
@@ -233,7 +232,6 @@ document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
 const page=document.getElementById("page"+i);
 page.classList.add("active");
 currentPage=i;
-dateLock();
 handleMusic(page);
 }
 
@@ -245,15 +243,6 @@ if(!src) return;
 if(music.src.includes(src)) return;
 music.src=src;
 if(!userPaused) music.play().catch(()=>{});
-}
-
-function dateLock(){
-const s=document.getElementById("page"+currentPage);
-if(!s.dataset.date)return;
-const now=new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
-if(new Date(now)<new Date(s.dataset.date+"T00:00:00")){
-s.querySelector("button")?.setAttribute("disabled",true);
-}else s.querySelector("button")?.removeAttribute("disabled");
 }
 
 document.getElementById("musicToggle").onclick=()=>{
