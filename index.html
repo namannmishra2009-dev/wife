@@ -76,7 +76,7 @@ video{
   to{transform:translateY(-150px);opacity:0}
 }
 
-/* BACKGROUND HEARTS (RESTORED) */
+/* BACKGROUND HEARTS */
 .bg-heart{
   position:fixed;
   bottom:-20px;
@@ -105,30 +105,6 @@ video{
   to{transform:translateY(-110vh) rotate(45deg);opacity:0}
 }
 
-/* LOCK POPUP */
-.lock-popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.65);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:10;
-}
-.lock-box{
-  background:white;
-  color:#ff4d6d;
-  padding:22px;
-  border-radius:16px;
-  max-width:280px;
-  text-align:center;
-  animation:pop .35s ease;
-}
-@keyframes pop{
-  from{transform:scale(.7);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
 /* POEM */
 .poem-line{
   opacity:0;
@@ -142,16 +118,8 @@ video{
 
 <audio id="bgm" loop></audio>
 
-<!-- LOCK POPUP -->
-<div id="lockPopup" class="lock-popup">
-  <div class="lock-box">
-    <p id="lockMsg"></p>
-    <button onclick="closePopup()">Okay ❤️</button>
-  </div>
-</div>
-
 <!-- PAGE 0 -->
-<div class="page active" id="page0" data-date="2026-02-07">
+<div class="page active" id="page0">
   <h1>Hi ❤️</h1>
   <p>Type your name</p>
   <input id="nameInput">
@@ -164,45 +132,37 @@ let dayNames=[
  "Rose Day 🌹","Propose Day 💍","Chocolate Day 🍫",
  "Teddy Day 🧸","Promise Day 🤝","Hug Day 🤗","Kiss Day 💋"
 ];
-let lockMsgs=[
- "A rose blooms only when it’s ready 🌹",
- "Some feelings wait for the right moment 💌",
- "Sweet things deserve patience 🍫",
- "This teddy is saving a hug for you 🧸",
- "Promises feel deeper when waited 🤝",
- "This hug is warming up for you 🤗",
- "This kiss wants the perfect time 💋",
- "This day belongs only to us ❤️"
-];
 
 for(let i=1;i<=7;i++){
- document.write(`
- <div class="page" id="page${i}" data-date="2026-02-${6+i}">
-  <h1>${dayNames[i-1]}</h1>
-  <p>Add GIF / photo here</p>
-  <button onclick="nextPage()">Next</button>
- </div>
- `);
+  const page=document.createElement("div");
+  page.className="page";
+  page.id="page"+i;
+  page.innerHTML=`
+    <h1>${dayNames[i-1]}</h1>
+    <p>Add GIF / photo here</p>
+    <button onclick="nextPage()">Next</button>
+  `;
+  document.body.appendChild(page);
 }
 </script>
 
 <!-- VALENTINE VIDEO -->
-<div class="page" id="page8" data-date="2026-02-14">
+<div class="page" id="page8">
   <h1>Valentine’s Day ❤️</h1>
-  <video src="media/valentine.mp4" controls></video><br>
+  <video src="media/valentine.mp4" controls playsinline></video><br>
   <button onclick="nextPage()">Yes ❤️</button>
   <button id="noBtn">No 🙈</button>
 </div>
 
 <!-- POEM -->
-<div class="page" id="page9" data-date="2026-02-14">
+<div class="page" id="page9">
   <h1>For You ❤️</h1>
   <div id="poem"></div>
   <button onclick="nextPage()">Next</button>
 </div>
 
 <!-- SUMMARY -->
-<div class="page" id="page10" data-date="2026-02-14">
+<div class="page" id="page10">
   <h1>Our Days 💖</h1>
   <p>Add all memories here</p>
 </div>
@@ -212,45 +172,35 @@ let currentPage=0;
 const audio=document.getElementById("bgm");
 
 function showPage(n){
- document.getElementById("page"+currentPage).classList.remove("active");
- currentPage=n;
- document.getElementById("page"+currentPage).classList.add("active");
- playMusic();
+  document.getElementById("page"+currentPage).classList.remove("active");
+  currentPage=n;
+  document.getElementById("page"+currentPage).classList.add("active");
+  playMusic();
 }
 
 function playMusic(){
- let day=Math.min(currentPage,8);
- audio.src=`music/day${day}.mp3`;
- audio.play().catch(()=>{});
+  let day=Math.min(currentPage,8);
+  audio.pause();
+  audio.src=`music/day${day}.mp3`;
+  audio.load();
+  audio.play().catch(()=>{});
 }
 
+/* NO DATE LOCK — DIRECT NEXT */
 function nextPage(){
- const page=document.getElementById("page"+currentPage);
- const date=page.dataset.date;
- if(date){
-  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-  const unlock=new Date(date+"T00:00:00");
-  if(now<unlock){
-   document.getElementById("lockMsg").innerText=lockMsgs[currentPage]||"Love is waiting ❤️";
-   document.getElementById("lockPopup").style.display="flex";
-   return;
+  if(document.getElementById("page"+(currentPage+1))){
+    showPage(currentPage+1);
   }
- }
- showPage(currentPage+1);
-}
-
-function closePopup(){
- document.getElementById("lockPopup").style.display="none";
 }
 
 /* No button escape */
 document.getElementById("noBtn")?.addEventListener("touchstart",runAway);
 document.getElementById("noBtn")?.addEventListener("mouseover",runAway);
 function runAway(){
- const b=document.getElementById("noBtn");
- b.style.position="absolute";
- b.style.left=Math.random()*70+"%";
- b.style.top=Math.random()*70+"%";
+  const b=document.getElementById("noBtn");
+  b.style.position="absolute";
+  b.style.left=Math.random()*70+"%";
+  b.style.top=Math.random()*70+"%";
 }
 
 /* Poem */
@@ -262,32 +212,34 @@ const poemLines=[
 ];
 const poemDiv=document.getElementById("poem");
 poemLines.forEach((l,i)=>{
- let p=document.createElement("p");
- p.className="poem-line";
- p.style.animationDelay=i+"s";
- p.innerText=l;
- poemDiv.appendChild(p);
+  let p=document.createElement("p");
+  p.className="poem-line";
+  p.style.animationDelay=i+"s";
+  p.innerText=l;
+  poemDiv.appendChild(p);
 });
 
 /* Click hearts */
 document.addEventListener("click",e=>{
- const h=document.createElement("div");
- h.className="heart";
- h.innerText="❤️";
- h.style.left=e.clientX+"px";
- h.style.top=e.clientY+"px";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),3000);
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="❤️";
+  h.style.left=e.clientX+"px";
+  h.style.top=e.clientY+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),3000);
 });
 
-/* Background hearts */
+/* Background hearts (limited) */
 setInterval(()=>{
- const h=document.createElement("div");
- h.className="bg-heart";
- h.style.left=Math.random()*innerWidth+"px";
- h.style.animationDuration=(6+Math.random()*6)+"s";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),12000);
+  if(document.querySelectorAll(".bg-heart").length<30){
+    const h=document.createElement("div");
+    h.className="bg-heart";
+    h.style.left=Math.random()*innerWidth+"px";
+    h.style.animationDuration=(6+Math.random()*6)+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),12000);
+  }
 },350);
 </script>
 
