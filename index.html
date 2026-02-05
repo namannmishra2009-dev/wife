@@ -76,7 +76,7 @@ video{
   to{transform:translateY(-150px);opacity:0}
 }
 
-/* BACKGROUND HEARTS (RESTORED) */
+/* BACKGROUND HEARTS */
 .bg-heart{
   position:fixed;
   bottom:-20px;
@@ -120,21 +120,20 @@ video{
   color:#ff4d6d;
   padding:22px;
   border-radius:16px;
-  max-width:280px;
+  max-width:300px;
   text-align:center;
   animation:pop .35s ease;
+}
+.lock-box small{
+  display:block;
+  margin-top:10px;
+  font-size:.85rem;
+  color:#ff6f91;
 }
 @keyframes pop{
   from{transform:scale(.7);opacity:0}
   to{transform:scale(1);opacity:1}
 }
-
-/* POEM */
-.poem-line{
-  opacity:0;
-  animation:fadeIn 1s forwards;
-}
-@keyframes fadeIn{to{opacity:1}}
 </style>
 </head>
 
@@ -146,6 +145,7 @@ video{
 <div id="lockPopup" class="lock-popup">
   <div class="lock-box">
     <p id="lockMsg"></p>
+    <small id="lockDate"></small>
     <button onclick="closePopup()">Okay ❤️</button>
   </div>
 </div>
@@ -186,7 +186,6 @@ for(let i=1;i<=7;i++){
 }
 </script>
 
-<!-- VALENTINE VIDEO -->
 <div class="page" id="page8" data-date="2026-02-14">
   <h1>Valentine’s Day ❤️</h1>
   <video src="media/valentine.mp4" controls></video><br>
@@ -194,17 +193,14 @@ for(let i=1;i<=7;i++){
   <button id="noBtn">No 🙈</button>
 </div>
 
-<!-- POEM -->
 <div class="page" id="page9" data-date="2026-02-14">
   <h1>For You ❤️</h1>
-  <div id="poem"></div>
+  <p>Tumhara naam likhte hi dil thoda sa ruk jaata hai</p>
   <button onclick="nextPage()">Next</button>
 </div>
 
-<!-- SUMMARY -->
 <div class="page" id="page10" data-date="2026-02-14">
   <h1>Our Days 💖</h1>
-  <p>Add all memories here</p>
 </div>
 
 <script>
@@ -215,13 +211,12 @@ function showPage(n){
  document.getElementById("page"+currentPage).classList.remove("active");
  currentPage=n;
  document.getElementById("page"+currentPage).classList.add("active");
- playMusic();
 }
 
-function playMusic(){
- let day=Math.min(currentPage,8);
- audio.src=`music/day${day}.mp3`;
- audio.play().catch(()=>{});
+function formatDate(d){
+ return d.toLocaleDateString("en-IN",{
+  day:"numeric",month:"short",year:"numeric"
+ });
 }
 
 function nextPage(){
@@ -231,7 +226,10 @@ function nextPage(){
   const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
   const unlock=new Date(date+"T00:00:00");
   if(now<unlock){
-   document.getElementById("lockMsg").innerText=lockMsgs[currentPage]||"Love is waiting ❤️";
+   document.getElementById("lockMsg").innerText=
+     lockMsgs[currentPage] || "Love is waiting ❤️";
+   document.getElementById("lockDate").innerText=
+     "Come back on: " + formatDate(unlock);
    document.getElementById("lockPopup").style.display="flex";
    return;
   }
@@ -243,31 +241,15 @@ function closePopup(){
  document.getElementById("lockPopup").style.display="none";
 }
 
-/* No button escape */
-document.getElementById("noBtn")?.addEventListener("touchstart",runAway);
-document.getElementById("noBtn")?.addEventListener("mouseover",runAway);
-function runAway(){
- const b=document.getElementById("noBtn");
- b.style.position="absolute";
- b.style.left=Math.random()*70+"%";
- b.style.top=Math.random()*70+"%";
+/* NO button escape */
+const noBtn=document.getElementById("noBtn");
+noBtn?.addEventListener("touchstart",moveNo);
+noBtn?.addEventListener("mouseover",moveNo);
+function moveNo(){
+ noBtn.style.position="absolute";
+ noBtn.style.left=Math.random()*70+"%";
+ noBtn.style.top=Math.random()*70+"%";
 }
-
-/* Poem */
-const poemLines=[
- "Tumhara naam likhte hi dil thoda sa ruk jaata hai",
- "Har din tum mujhe thoda aur apna bana leti ho",
- "Ye sirf Valentine nahi",
- "Ye hum hain ❤️"
-];
-const poemDiv=document.getElementById("poem");
-poemLines.forEach((l,i)=>{
- let p=document.createElement("p");
- p.className="poem-line";
- p.style.animationDelay=i+"s";
- p.innerText=l;
- poemDiv.appendChild(p);
-});
 
 /* Click hearts */
 document.addEventListener("click",e=>{
