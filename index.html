@@ -2,283 +2,231 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You ❤️</title>
+<title>For Jhansi ❤️</title>
 
 <style>
-*{box-sizing:border-box}
 body{
-margin:0;
-font-family:"Segoe UI",sans-serif;
-min-height:100vh;
-color:#fff;
-overflow-x:hidden;
-background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
-background-size:400% 400%;
-animation:bgMove 30s ease infinite
-}
-@keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(120deg,#ff758c,#ff7eb3);
+  overflow:hidden;
 }
 
-.section{
-display:none;
-min-height:100vh;
-padding:40px 20px;
-text-align:center;
-position:relative;
-z-index:2
+.page{
+  display:none;
+  height:100vh;
+  width:100vw;
+  color:white;
+  text-align:center;
+  padding:20px;
+  box-sizing:border-box;
 }
-.section.active{display:block}
 
-h1,h2,h3{text-shadow:0 0 10px rgba(255,182,193,.8)}
-p{max-width:700px;margin:0 auto 20px}
+.active{display:block}
 
-input{
-padding:12px;
-width:260px;
-border-radius:8px;
-border:none;
-text-align:center
-}
 button{
-margin-top:20px;
-padding:12px 30px;
-border-radius:25px;
-border:none;
-background:#ff4f7a;
-color:#fff;
-font-size:1rem;
-cursor:pointer
-}
-button:disabled{opacity:.5}
-
-img{
-max-width:260px;
-width:90%;
-border-radius:15px;
-margin:10px;
-box-shadow:0 0 20px rgba(255,255,255,.4)
+  padding:12px 20px;
+  font-size:16px;
+  border:none;
+  border-radius:20px;
+  background:#fff;
+  color:#ff4d6d;
+  cursor:pointer;
+  margin:10px;
 }
 
-/* CLICK HEARTS */
+/* Floating hearts */
 .heart{
-position:fixed;
-font-size:26px;
-pointer-events:none;
-animation:floatUp 2.5s ease-out forwards;
-z-index:5
+  position:fixed;
+  font-size:20px;
+  animation: float 3s linear forwards;
 }
-@keyframes floatUp{
-0%{opacity:1;transform:translateY(0) scale(1)}
-100%{opacity:0;transform:translateY(-140px) scale(1.6)}
+@keyframes float{
+  from{transform:translateY(0);opacity:1}
+  to{transform:translateY(-150px);opacity:0}
 }
 
-/* BACKGROUND HEARTS */
-.bg-heart{
-position:fixed;
-bottom:-20px;
-width:14px;
-height:14px;
-background:rgba(255,255,255,.8);
-transform:rotate(45deg);
-z-index:1;
-animation:bgFloat linear infinite
+/* Lock popup */
+.lock-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
 }
-.bg-heart:before,
-.bg-heart:after{
-content:"";
-position:absolute;
-width:14px;
-height:14px;
-background:inherit;
-border-radius:50%
+.lock-box{
+  background:white;
+  color:#ff4d6d;
+  padding:25px;
+  border-radius:15px;
+  max-width:280px;
+  animation:pop .4s ease;
 }
-.bg-heart:before{top:-7px;left:0}
-.bg-heart:after{left:-7px;top:0}
-
-@keyframes bgFloat{
-0%{transform:translateY(0) rotate(45deg);opacity:0}
-20%{opacity:.8}
-100%{transform:translateY(-110vh) rotate(45deg);opacity:0}
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
 
-/* SUMMARY */
-.summary{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-margin-top:30px
+/* Poem animation */
+.poem-line{
+  opacity:0;
+  animation:fadeIn 1s forwards;
 }
-.card{
-background:rgba(255,255,255,.15);
-border-radius:20px;
-padding:20px
+@keyframes fadeIn{
+  to{opacity:1}
 }
 
-/* MUSIC BUTTON */
-#musicToggle{
-position:fixed;
-top:15px;
-right:15px;
-display:none;
-background:rgba(0,0,0,.4);
-padding:10px;
-border-radius:50%;
-cursor:pointer;
-z-index:6
+/* Video box */
+video{
+  width:80%;
+  max-width:400px;
+  border-radius:15px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SINGLE AUDIO PLAYER -->
-<audio id="bgMusic" loop></audio>
-<div id="musicToggle">🎵</div>
+<audio id="bgm" loop></audio>
+
+<!-- LOCK POPUP -->
+<div id="lockPopup" class="lock-popup">
+  <div class="lock-box">
+    <p id="lockMsg"></p>
+    <button onclick="closePopup()">Okay ❤️</button>
+  </div>
+</div>
 
 <!-- PAGE 0 -->
-<section class="section active" id="page0">
-<h1>❤️</h1>
-<p>Type to unlock</p>
-<input id="nameInput">
-<br>
-<button onclick="checkName()">Open</button>
-<div id="nameMsg"></div>
-</section>
-
-<!-- DAY PAGES (WITH MUSIC) -->
-<section class="section" id="page1" data-date="2026-02-07" data-music="music/rose.mp3">
-<h2>Rose Day 🌹</h2>
-<img src="gifs/rose.gif">
-<img src="images/rose.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page2" data-date="2026-02-08" data-music="music/propose.mp3">
-<h2>Propose Day 💌</h2>
-<img src="gifs/propose.gif">
-<img src="images/propose.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page3" data-date="2026-02-09" data-music="music/chocolate.mp3">
-<h2>Chocolate Day 🍫</h2>
-<img src="gifs/chocolate.gif">
-<img src="images/chocolate.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page4" data-date="2026-02-10" data-music="music/teddy.mp3">
-<h2>Teddy Day 🧸</h2>
-<img src="gifs/teddy.gif">
-<img src="images/teddy.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page5" data-date="2026-02-11" data-music="music/promise.mp3">
-<h2>Promise Day 🤝</h2>
-<img src="gifs/promise.gif">
-<img src="images/promise.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page6" data-date="2026-02-12" data-music="music/hug.mp3">
-<h2>Hug Day 🤗</h2>
-<img src="gifs/hug.gif">
-<img src="images/hug.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page7" data-date="2026-02-13" data-music="music/kiss.mp3">
-<h2>Kiss Day 💋</h2>
-<img src="gifs/kiss.gif">
-<img src="images/kiss.jpg">
-<button onclick="nextPage()">Next</button>
-</section>
-
-<section class="section" id="page8" data-date="2026-02-14" data-music="music/valentine.mp3">
-<h1>Our Valentine Week ❤️</h1>
-<p>Every day, every feeling, always you.</p>
-
-<div class="summary">
-<div class="card"><h3>Rose 🌹</h3><img src="images/rose.jpg"></div>
-<div class="card"><h3>Propose 💌</h3><img src="images/propose.jpg"></div>
-<div class="card"><h3>Chocolate 🍫</h3><img src="images/chocolate.jpg"></div>
-<div class="card"><h3>Teddy 🧸</h3><img src="images/teddy.jpg"></div>
-<div class="card"><h3>Promise 🤝</h3><img src="images/promise.jpg"></div>
-<div class="card"><h3>Hug 🤗</h3><img src="images/hug.jpg"></div>
-<div class="card"><h3>Kiss 💋</h3><img src="images/kiss.jpg"></div>
-<div class="card"><h3>Valentine ❤️</h3><img src="images/valentine.jpg"></div>
+<div class="page active" id="page0" data-date="2026-02-07">
+  <h1>Hi ❤️</h1>
+  <p>Write your name</p>
+  <input id="nameInput" placeholder="Your name">
+  <br>
+  <button onclick="nextPage()">Next</button>
 </div>
-</section>
+
+<!-- DAY PAGES 1–7 -->
+<script>
+let dayNames=[
+ "Rose Day 🌹","Propose Day 💍","Chocolate Day 🍫",
+ "Teddy Day 🧸","Promise Day 🤝","Hug Day 🤗","Kiss Day 💋"
+];
+let lockMsgs=[
+ "A rose blooms only on its time 🌹",
+ "Some words wait for the right heartbeat 💌",
+ "Sweet things deserve patience 🍫",
+ "This hug is warming up for you 🧸",
+ "Promises feel stronger when waited 🤝",
+ "Saving the tightest hug for you 🤗",
+ "This kiss needs the perfect moment 💋",
+ "This day belongs only to us ❤️"
+];
+for(let i=1;i<=7;i++){
+ document.write(`
+ <div class="page" id="page${i}" data-date="2026-02-${6+i}">
+  <h1>${dayNames[i-1]}</h1>
+  <p>Add GIF / photo here</p>
+  <button onclick="nextPage()">Next</button>
+ </div>
+ `);
+}
+</script>
+
+<!-- VALENTINE PAGE 8 (VIDEO) -->
+<div class="page" id="page8" data-date="2026-02-14">
+  <h1>Valentine’s Day ❤️</h1>
+  <video controls src="media/valentine.mp4"></video>
+  <br>
+  <button id="yesBtn" onclick="nextPage()">Yes ❤️</button>
+  <button id="noBtn">No 🙈</button>
+</div>
+
+<!-- POEM PAGE -->
+<div class="page" id="page9" data-date="2026-02-14">
+  <h1>For You ❤️</h1>
+  <div id="poem"></div>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<!-- SUMMARY PAGE -->
+<div class="page" id="page10" data-date="2026-02-14">
+  <h1>Our Days 💖</h1>
+  <p>Add all photos + gifs here</p>
+</div>
 
 <script>
 let currentPage=0;
-let userPaused=false;
-const music=document.getElementById("bgMusic");
+const audio=document.getElementById("bgm");
 
-function checkName(){
-const v=document.getElementById("nameInput").value.toLowerCase().trim();
-if(v==="jhansi rani mishra"){
-showPage(1);
-document.getElementById("musicToggle").style.display="block";
-}else document.getElementById("nameMsg").innerText="Not this ❤️";
+function showPage(n){
+ document.getElementById("page"+currentPage).classList.remove("active");
+ currentPage=n;
+ document.getElementById("page"+currentPage).classList.add("active");
+ playMusic();
 }
 
-function showPage(i){
-document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-const page=document.getElementById("page"+i);
-page.classList.add("active");
-currentPage=i;
-dateLock();
-handleMusic(page);
+function playMusic(){
+ let day=Math.min(currentPage,8);
+ audio.src=`music/day${day}.mp3`;
+ audio.play().catch(()=>{});
 }
 
-function nextPage(){showPage(currentPage+1)}
-
-function handleMusic(page){
-const src=page.dataset.music;
-if(!src) return;
-if(music.src.includes(src)) return;
-music.src=src;
-if(!userPaused) music.play().catch(()=>{});
+function nextPage(){
+ const page=document.getElementById("page"+currentPage);
+ const date=page.dataset.date;
+ if(date){
+  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+  const unlock=new Date(date+"T00:00:00");
+  if(now<unlock){
+   document.getElementById("lockMsg").innerText=lockMsgs[currentPage]||"Love is waiting ❤️";
+   document.getElementById("lockPopup").style.display="flex";
+   return;
+  }
+ }
+ showPage(currentPage+1);
 }
 
-function dateLock(){
-const s=document.getElementById("page"+currentPage);
-if(!s.dataset.date)return;
-const now=new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"});
-if(new Date(now)<new Date(s.dataset.date+"T00:00:00")){
-s.querySelector("button")?.setAttribute("disabled",true);
-}else s.querySelector("button")?.removeAttribute("disabled");
+function closePopup(){
+ document.getElementById("lockPopup").style.display="none";
 }
 
-document.getElementById("musicToggle").onclick=()=>{
-if(music.paused){music.play();userPaused=false}
-else{music.pause();userPaused=true}
-};
-
-document.addEventListener("click",e=>{
-const h=document.createElement("div");
-h.className="heart";
-h.innerText="❤️";
-h.style.left=e.clientX+"px";
-h.style.top=e.clientY+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),2500);
+/* No button run away */
+document.getElementById("noBtn")?.addEventListener("mouseover",()=>{
+ const btn=document.getElementById("noBtn");
+ btn.style.position="absolute";
+ btn.style.left=Math.random()*80+"%";
+ btn.style.top=Math.random()*80+"%";
 });
 
-setInterval(()=>{
-const h=document.createElement("div");
-h.className="bg-heart";
-h.style.left=Math.random()*innerWidth+"px";
-h.style.animationDuration=(5+Math.random()*6)+"s";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),12000);
-},300);
+/* Poem */
+const poemLines=[
+ "Tumhara naam likhte hi dil thoda sa sharma jaata hai",
+ "Har din tum mere liye thoda aur special ban jaata hai",
+ "Ye sirf Valentine nahi… ye hum hain",
+ "Aur main tumhe har din choose karta hoon ❤️"
+];
+const poemDiv=document.getElementById("poem");
+poemLines.forEach((l,i)=>{
+ let p=document.createElement("p");
+ p.className="poem-line";
+ p.style.animationDelay=i+"s";
+ p.innerText=l;
+ poemDiv.appendChild(p);
+});
+
+/* Click hearts */
+document.addEventListener("click",e=>{
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerText="❤️";
+ h.style.left=e.clientX+"px";
+ h.style.top=e.clientY+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),3000);
+});
 </script>
 
 </body>
