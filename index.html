@@ -23,6 +23,37 @@ animation:bgMove 30s ease infinite
 100%{background-position:0% 50%}
 }
 
+/* ---------- HEART EFFECTS ---------- */
+.heart-bg{
+position:fixed;
+bottom:-10vh;
+font-size:20px;
+opacity:.7;
+animation:floatUp linear infinite;
+pointer-events:none;
+z-index:1
+}
+@keyframes floatUp{
+to{
+transform:translateY(-120vh) scale(1.5);
+opacity:0
+}
+}
+
+.click-heart{
+position:fixed;
+font-size:22px;
+pointer-events:none;
+animation:pop 1s ease forwards;
+z-index:5
+}
+@keyframes pop{
+0%{transform:scale(.4);opacity:1}
+100%{transform:scale(2);opacity:0}
+}
+
+/* ---------------------------------- */
+
 .section{
 display:none;
 min-height:100vh;
@@ -67,15 +98,9 @@ text-shadow:0 0 15px rgba(255,255,255,.6)
 100%{transform:scale(1)}
 }
 
-/* YES / NO buttons */
-.choice{
-margin-top:30px;
-position:relative;
-height:120px
-}
-#noBtn{
-position:absolute
-}
+/* YES / NO */
+.choice{margin-top:30px;position:relative;height:120px}
+#noBtn{position:absolute}
 
 /* POEM */
 .poem p{
@@ -83,14 +108,9 @@ opacity:0;
 transform:translateY(15px);
 animation:poemLine 1s ease forwards
 }
-.poem p:nth-child(n){
-animation-delay:calc(var(--i) * 1s)
-}
-@keyframes poemLine{
-to{opacity:1;transform:translateY(0)}
-}
+@keyframes poemLine{to{opacity:1;transform:translateY(0)}}
 
-/* MUSIC BUTTON */
+/* MUSIC */
 #musicToggle{
 position:fixed;
 top:15px;
@@ -131,21 +151,19 @@ padding:20px
 <br>
 <button onclick="checkName()">Open</button>
 <div id="nameMsg"></div>
-
 <div id="countdown">Our moment begins soon…</div>
 </section>
 
 <!-- DAY PAGES -->
-<section class="section" id="page1" data-date="2026-02-07" data-music="music/rose.mp3"><button onclick="nextPage()">Next</button></section>
-<section class="section" id="page2" data-date="2026-02-08" data-music="music/propose.mp3"><button onclick="nextPage()">Next</button></section>
-<section class="section" id="page3" data-date="2026-02-09" data-music="music/chocolate.mp3"><button onclick="nextPage()">Next</button></section>
-<section class="section" id="page4" data-date="2026-02-10" data-music="music/teddy.mp3"><button onclick="nextPage()">Next</button></section>
-<section class="section" id="page5" data-date="2026-02-11" data-music="music/promise.mp3"><button onclick="nextPage()">Next</button></section>
-<section class="section" id="page6" data-date="2026-02-12" data-music="music/hug.mp3"><button onclick="nextPage()">Next</button></section>
-<section class="section" id="page7" data-date="2026-02-13" data-music="music/kiss.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page1" data-music="music/rose.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page2" data-music="music/propose.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page3" data-music="music/chocolate.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page4" data-music="music/teddy.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page5" data-music="music/promise.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page6" data-music="music/hug.mp3"><button onclick="nextPage()">Next</button></section>
+<section class="section" id="page7" data-music="music/kiss.mp3"><button onclick="nextPage()">Next</button></section>
 
-<!-- PAGE 8 -->
-<section class="section" id="page8" data-date="2026-02-14" data-music="music/valentine.mp3">
+<section class="section" id="page8" data-music="music/valentine.mp3">
 <h1>Will you be mine forever? ❤️</h1>
 <video controls>
 <source src="video/valentine.mp4" type="video/mp4">
@@ -156,19 +174,17 @@ padding:20px
 </div>
 </section>
 
-<!-- PAGE 9 -->
-<section class="section" id="page9" data-date="2026-02-14" data-music="music/valentine.mp3">
+<section class="section" id="page9" data-music="music/valentine.mp3">
 <div class="poem">
-<p style="--i:1">Jhansi…</p>
-<p style="--i:2">Jab tum muskurati ho na,<br>toh main chup ho jaata hoon.</p>
-<p style="--i:3">Tum hi meri sabse pyaari aadat ho.</p>
-<p style="--i:4">Aaj bhi, kal bhi… sirf tum ❤️</p>
+<p style="animation-delay:1s">Jhansi…</p>
+<p style="animation-delay:2s">Jab tum muskurati ho na,<br>toh main chup ho jaata hoon.</p>
+<p style="animation-delay:3s">Tum hi meri sabse pyaari aadat ho.</p>
+<p style="animation-delay:4s">Aaj bhi, kal bhi… sirf tum ❤️</p>
 </div>
 <button onclick="nextPage()">Next</button>
 </section>
 
-<!-- PAGE 10 -->
-<section class="section" id="page10" data-date="2026-02-14" data-music="music/valentine.mp3">
+<section class="section" id="page10" data-music="music/valentine.mp3">
 <h2>Our Valentine Week 💖</h2>
 <div class="summary">
 <div class="card">Rose 🌹</div>
@@ -183,70 +199,48 @@ padding:20px
 </section>
 
 <script>
-let currentPage=0;
-let userPaused=false;
+/* BACKGROUND HEARTS */
+setInterval(()=>{
+const h=document.createElement("div");
+h.className="heart-bg";
+h.innerText="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=8+Math.random()*6+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),15000);
+},700);
+
+/* CLICK HEART */
+document.addEventListener("click",e=>{
+const h=document.createElement("div");
+h.className="click-heart";
+h.innerText="💖";
+h.style.left=e.clientX+"px";
+h.style.top=e.clientY+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),1000);
+});
+
+/* EXISTING LOGIC */
+let currentPage=0,userPaused=false;
 const music=document.getElementById("bgMusic");
-const unlockDate=new Date("2026-02-14T00:00:00");
 
-function getIST(){
-return new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-}
-
-/* COUNTDOWN */
-function updateCountdown(){
-const now=getIST();
-const diff=unlockDate-now;
-const el=document.getElementById("countdown");
-
-if(diff<=0){
-el.innerHTML="It’s our day now ❤️";
-el.style.animation="none";
-return;
-}
-
-const d=Math.floor(diff/(1000*60*60*24));
-const h=Math.floor(diff/(1000*60*60)%24);
-const m=Math.floor(diff/(1000*60)%60);
-const s=Math.floor(diff/1000%60);
-
-el.innerHTML=`Our moment begins in<br>
-<b>${d}</b> days <b>${h}</b> hours<br>
-<b>${m}</b> minutes <b>${s}</b> seconds ❤️`;
-}
-setInterval(updateCountdown,1000);
-updateCountdown();
-
-/* EXISTING LOGIC (UNCHANGED) */
 function checkName(){
 if(nameInput.value.toLowerCase().trim()==="jhansi rani mishra"){
-showPage(1);
-musicToggle.style.display="block";
+showPage(1);musicToggle.style.display="block";
 }else nameMsg.innerText="Not this ❤️";
 }
-
 function showPage(i){
 document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-const page=document.getElementById("page"+i);
-page.classList.add("active");
-currentPage=i;
-handleMusic(page);
+document.getElementById("page"+i).classList.add("active");
+currentPage=i;handleMusic(document.getElementById("page"+i));
 }
-
 function nextPage(){showPage(currentPage+1)}
-
-function handleMusic(page){
-const src=page.dataset.music;
-if(!src) return;
-if(!music.src.includes(src)){
-music.src=src;
-if(!userPaused) music.play().catch(()=>{});
-}
-}
-
-musicToggle.onclick=()=>{
-music.paused?(music.play(),userPaused=false):(music.pause(),userPaused=true);
-}
-
+function handleMusic(p){
+if(p.dataset.music&&!music.src.includes(p.dataset.music)){
+music.src=p.dataset.music;if(!userPaused)music.play().catch(()=>{});
+}}
+musicToggle.onclick=()=>music.paused?(music.play(),userPaused=false):(music.pause(),userPaused=true);
 function moveNo(){
 noBtn.style.left=Math.random()*70+"%";
 noBtn.style.top=Math.random()*70+"%";
