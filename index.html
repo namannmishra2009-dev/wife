@@ -1,268 +1,149 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>For Jhansi ❤️</title>  <style>  
-*{box-sizing:border-box}  
-  
-body{  
-  margin:0;  
-  font-family:'Segoe UI',sans-serif;  
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);  
-  min-height:100vh;  
-  overflow-x:hidden;  
-  color:white;  
-}  
-  
-/* PAGES */  
-.page{  
-  display:none;  
-  min-height:100vh;  
-  width:100%;  
-  padding:20px 15px 40px;  
-  text-align:center;  
-  position:relative;  
-  z-index:2;  
-}  
-.active{display:block}  
-  
-h1{font-size:1.8rem}  
-p{font-size:1rem}  
-  
-/* INPUT */  
-input{  
-  padding:12px;  
-  width:90%;  
-  max-width:280px;  
-  border-radius:10px;  
-  border:none;  
-  text-align:center;  
-  font-size:1rem;  
-}  
-  
-/* BUTTONS */  
-button{  
-  padding:12px 22px;  
-  font-size:1rem;  
-  border:none;  
-  border-radius:25px;  
-  background:#fff;  
-  color:#ff4d6d;  
-  cursor:pointer;  
-  margin:10px;  
-}  
-  
-/* VIDEO */  
-video{  
-  width:100%;  
-  max-width:360px;  
-  border-radius:16px;  
-  margin:15px auto;  
-}  
-  
-/* CLICK HEARTS */  
-.heart{  
-  position:fixed;  
-  font-size:22px;  
-  pointer-events:none;  
-  animation:floatUp 3s ease-out forwards;  
-  z-index:5;  
-}  
-@keyframes floatUp{  
-  from{transform:translateY(0);opacity:1}  
-  to{transform:translateY(-150px);opacity:0}  
-}  
-  
-/* BACKGROUND HEARTS (RESTORED) */  
-.bg-heart{  
-  position:fixed;  
-  bottom:-20px;  
-  width:14px;  
-  height:14px;  
-  background:rgba(255,255,255,.7);  
-  transform:rotate(45deg);  
-  z-index:1;  
-  animation:bgFloat linear infinite;  
-}  
-.bg-heart:before,  
-.bg-heart:after{  
-  content:"";  
-  position:absolute;  
-  width:14px;  
-  height:14px;  
-  background:inherit;  
-  border-radius:50%;  
-}  
-.bg-heart:before{top:-7px;left:0}  
-.bg-heart:after{left:-7px;top:0}  
-  
-@keyframes bgFloat{  
-  from{transform:translateY(0) rotate(45deg);opacity:0}  
-  20%{opacity:.8}  
-  to{transform:translateY(-110vh) rotate(45deg);opacity:0}  
-}  
-  
-/* LOCK POPUP */  
-.lock-popup{  
-  position:fixed;  
-  inset:0;  
-  background:rgba(0,0,0,.65);  
-  display:none;  
-  justify-content:center;  
-  align-items:center;  
-  z-index:10;  
-}  
-.lock-box{  
-  background:white;  
-  color:#ff4d6d;  
-  padding:22px;  
-  border-radius:16px;  
-  max-width:280px;  
-  text-align:center;  
-  animation:pop .35s ease;  
-}  
-@keyframes pop{  
-  from{transform:scale(.7);opacity:0}  
-  to{transform:scale(1);opacity:1}  
-}  
-  
-/* POEM */  
-.poem-line{  
-  opacity:0;  
-  animation:fadeIn 1s forwards;  
-}  
-@keyframes fadeIn{to{opacity:1}}  
-</style>  </head>  <body>  <audio id="bgm" loop></audio>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Jhansi ❤️</title>
 
-<!-- LOCK POPUP -->  <div id="lockPopup" class="lock-popup">  
-  <div class="lock-box">  
-    <p id="lockMsg"></p>  
-    <button onclick="closePopup()">Okay ❤️</button>  
-  </div>  
-</div>  <!-- PAGE 0 -->  <div class="page active" id="page0" data-date="2026-02-07">  
-  <h1>Hi ❤️</h1>  
-  <p>Type your name</p>  
-  <input id="nameInput">  
-  <br>  
-  <button onclick="nextPage()">Next</button>  
-</div>  <script>  
-let dayNames=[  
- "Rose Day 🌹","Propose Day 💍","Chocolate Day 🍫",  
- "Teddy Day 🧸","Promise Day 🤝","Hug Day 🤗","Kiss Day 💋"  
-];  
-let lockMsgs=[  
- "A rose blooms only when it’s ready 🌹",  
- "Some feelings wait for the right moment 💌",  
- "Sweet things deserve patience 🍫",  
- "This teddy is saving a hug for you 🧸",  
- "Promises feel deeper when waited 🤝",  
- "This hug is warming up for you 🤗",  
- "This kiss wants the perfect time 💋",  
- "This day belongs only to us ❤️"  
-];  
-  
-for(let i=1;i<=7;i++){  
- document.write(`  
- <div class="page" id="page${i}" data-date="2026-02-${6+i}">  
-  <h1>${dayNames[i-1]}</h1>  
-  <p>Add GIF / photo here</p>  
-  <button onclick="nextPage()">Next</button>  
- </div>  
- `);  
-}  
-</script>  <!-- VALENTINE VIDEO -->  <div class="page" id="page8" data-date="2026-02-14">  
-  <h1>Valentine’s Day ❤️</h1>  
-  <video src="media/valentine.mp4" controls></video><br>  
-  <button onclick="nextPage()">Yes ❤️</button>  
-  <button id="noBtn">No 🙈</button>  
-</div>  <!-- POEM -->  <div class="page" id="page9" data-date="2026-02-14">  
-  <h1>For You ❤️</h1>  
-  <div id="poem"></div>  
-  <button onclick="nextPage()">Next</button>  
-</div>  <!-- SUMMARY -->  <div class="page" id="page10" data-date="2026-02-14">  
-  <h1>Our Days 💖</h1>  
-  <p>Add all memories here</p>  
-</div>  <script>  
-let currentPage=0;  
-const audio=document.getElementById("bgm");  
-  
-function showPage(n){  
- document.getElementById("page"+currentPage).classList.remove("active");  
- currentPage=n;  
- document.getElementById("page"+currentPage).classList.add("active");  
- playMusic();  
-}  
-  
-function playMusic(){  
- let day=Math.min(currentPage,8);  
- audio.src=`music/day${day}.mp3`;  
- audio.play().catch(()=>{});  
-}  
-  
-function nextPage(){  
- const page=document.getElementById("page"+currentPage);  
- const date=page.dataset.date;  
- if(date){  
-  const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));  
-  const unlock=new Date(date+"T00:00:00");  
-  if(now<unlock){  
-   document.getElementById("lockMsg").innerText=lockMsgs[currentPage]||"Love is waiting ❤️";  
-   document.getElementById("lockPopup").style.display="flex";  
-   return;  
-  }  
- }  
- showPage(currentPage+1);  
-}  
-  
-function closePopup(){  
- document.getElementById("lockPopup").style.display="none";  
-}  
-  
-/* No button escape */  
-document.getElementById("noBtn")?.addEventListener("touchstart",runAway);  
-document.getElementById("noBtn")?.addEventListener("mouseover",runAway);  
-function runAway(){  
- const b=document.getElementById("noBtn");  
- b.style.position="absolute";  
- b.style.left=Math.random()*70+"%";  
- b.style.top=Math.random()*70+"%";  
-}  
-  
-/* Poem */  
-const poemLines=[  
- "Tumhara naam likhte hi dil thoda sa ruk jaata hai",  
- "Har din tum mujhe thoda aur apna bana leti ho",  
- "Ye sirf Valentine nahi",  
- "Ye hum hain ❤️"  
-];  
-const poemDiv=document.getElementById("poem");  
-poemLines.forEach((l,i)=>{  
- let p=document.createElement("p");  
- p.className="poem-line";  
- p.style.animationDelay=i+"s";  
- p.innerText=l;  
- poemDiv.appendChild(p);  
-});  
-  
-/* Click hearts */  
-document.addEventListener("click",e=>{  
- const h=document.createElement("div");  
- h.className="heart";  
- h.innerText="❤️";  
- h.style.left=e.clientX+"px";  
- h.style.top=e.clientY+"px";  
- document.body.appendChild(h);  
- setTimeout(()=>h.remove(),3000);  
-});  
-  
-/* Background hearts */  
-setInterval(()=>{  
- const h=document.createElement("div");  
- h.className="bg-heart";  
- h.style.left=Math.random()*innerWidth+"px";  
- h.style.animationDuration=(6+Math.random()*6)+"s";  
- document.body.appendChild(h);  
- setTimeout(()=>h.remove(),12000);  
-},350);  
-</script>  </body>  
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  min-height:100vh;
+  overflow-x:hidden;
+  color:white;
+}
+
+.page{
+  display:none;
+  min-height:100vh;
+  padding:20px 15px 40px;
+  text-align:center;
+}
+.active{display:block}
+
+img, video, audio{
+  width:100%;
+  max-width:320px;
+  border-radius:16px;
+  margin:12px auto;
+  display:block;
+}
+
+button{
+  padding:12px 22px;
+  border:none;
+  border-radius:25px;
+  background:#fff;
+  color:#ff4d6d;
+  font-size:1rem;
+  margin:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOCK POPUP -->
+<div id="lockPopup" class="lock-popup">
+  <div class="lock-box">
+    <p id="lockMsg"></p>
+    <button onclick="closePopup()">Okay ❤️</button>
+  </div>
+</div>
+
+<!-- PAGE 0 -->
+<div class="page active" id="page0" data-date="2026-02-07">
+  <h1>Hi ❤️</h1>
+  <input placeholder="Your name">
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<script>
+let dayNames=[
+ "Rose Day 🌹","Propose Day 💍","Chocolate Day 🍫",
+ "Teddy Day 🧸","Promise Day 🤝","Hug Day 🤗","Kiss Day 💋"
+];
+
+let media=[
+ ["rose","day1.mp3"],
+ ["propose","day2.mp3"],
+ ["chocolate","day3.mp3"],
+ ["teddy","day4.mp3"],
+ ["promise","day5.mp3"],
+ ["hug","day6.mp3"],
+ ["kiss","day7.mp3"]
+];
+
+for(let i=1;i<=7;i++){
+ document.write(`
+ <div class="page" id="page${i}" data-date="2026-02-${6+i}">
+   <h1>${dayNames[i-1]}</h1>
+
+   <img src="media/${media[i-1][0]}.jpg">
+   <img src="media/${media[i-1][0]}.gif">
+
+   <audio controls src="music/${media[i-1][1]}"></audio>
+
+   <button onclick="nextPage()">Next</button>
+ </div>
+ `);
+}
+</script>
+
+<!-- PAGE 8 -->
+<div class="page" id="page8" data-date="2026-02-14">
+  <h1>Valentine’s Day ❤️</h1>
+  <video src="media/valentine.mp4" controls></video>
+  <audio controls src="music/valentine.mp3"></audio>
+  <button onclick="nextPage()">Yes ❤️</button>
+</div>
+
+<!-- PAGE 9 -->
+<div class="page" id="page9" data-date="2026-02-14">
+  <h1>For You ❤️</h1>
+  <p>Tumhara naam likhte hi dil thoda sa ruk jaata hai</p>
+  <audio controls src="music/valentine.mp3"></audio>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<!-- PAGE 10 -->
+<div class="page" id="page10" data-date="2026-02-14">
+  <h1>Our Days 💖</h1>
+  <audio controls src="music/valentine.mp3"></audio>
+</div>
+
+<script>
+let currentPage=0;
+
+function showPage(n){
+ document.getElementById("page"+currentPage).classList.remove("active");
+ currentPage=n;
+ document.getElementById("page"+currentPage).classList.add("active");
+}
+
+function nextPage(){
+ const page=document.getElementById("page"+currentPage);
+ const date=page.dataset.date;
+ if(date){
+  const now=new Date();
+  const unlock=new Date(date+"T00:00:00");
+  if(now<unlock){
+   document.getElementById("lockMsg").innerText="Love is waiting ❤️";
+   document.getElementById("lockPopup").style.display="flex";
+   return;
+  }
+ }
+ showPage(currentPage+1);
+}
+
+function closePopup(){
+ document.getElementById("lockPopup").style.display="none";
+}
+</script>
+
+</body>
 </html>
