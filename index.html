@@ -62,6 +62,25 @@ button{
   margin-bottom:10px;
 }
 
+/* LOCK POPUP */
+.lock-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+.lock-box{
+  background:white;
+  color:#ff4d6d;
+  padding:22px;
+  border-radius:16px;
+  max-width:280px;
+  text-align:center;
+}
+
 /* HEARTS */
 .heart{
   position:fixed;
@@ -113,8 +132,15 @@ button{
 
 <body>
 
-<!-- BACKGROUND MUSIC -->
 <audio id="bgm" loop></audio>
+
+<!-- LOCK POPUP -->
+<div id="lockPopup" class="lock-popup">
+  <div class="lock-box">
+    <p id="lockMsg"></p>
+    <button onclick="closeLock()">Okay ❤️</button>
+  </div>
+</div>
 
 <!-- PAGE 0 -->
 <div class="page active" id="page0">
@@ -131,37 +157,45 @@ let dayNames=[
  "Teddy Day 🧸","Promise Day 🤝","Hug Day 🤗","Kiss Day 💋"
 ];
 
+let lockMsgs=[
+ "A rose blooms only when it’s ready 🌹",
+ "Some feelings wait for the right moment 💌",
+ "Sweet things deserve patience 🍫",
+ "This teddy is saving a hug for you 🧸",
+ "Promises feel deeper when waited 🤝",
+ "This hug is warming up for you 🤗",
+ "This kiss wants the perfect time 💋",
+ "This day belongs only to us ❤️"
+];
+
 for(let i=1;i<=7;i++){
  document.write(`
- <div class="page" id="page${i}">
+ <div class="page" id="page${i}" data-date="2026-02-${6+i}">
   <h1>${dayNames[i-1]}</h1>
-
   <div class="media-box">
     <img src="images/rose.jpg">
     <img src="images/rose.gif">
   </div>
-
   <button onclick="nextPage()">Next</button>
  </div>
  `);
 }
 </script>
 
-<div class="page" id="page8">
+<div class="page" id="page8" data-date="2026-02-14">
   <h1>Valentine’s Day ❤️</h1>
   <button onclick="nextPage()">Yes ❤️</button>
   <button id="noBtn">No 🙈</button>
 </div>
 
-<div class="page" id="page9">
+<div class="page" id="page9" data-date="2026-02-14">
   <h1>For You ❤️</h1>
   <div id="poem"></div>
   <button onclick="nextPage()">Next</button>
 </div>
 
-<div class="page" id="page10">
+<div class="page" id="page10" data-date="2026-02-14">
   <h1>Our Days 💖</h1>
-  <p>Add all memories here</p>
 </div>
 
 <script>
@@ -169,14 +203,8 @@ let currentPage=0;
 const bgm=document.getElementById("bgm");
 
 function playMusic(){
-  let src;
-  if(currentPage<=7){
-    src=`music/day${currentPage}.mp3`;
-  }else{
-    src="music/valentine.mp3";
-  }
-
-  if(bgm.src.indexOf(src)===-1){
+  let src=currentPage<=7?`music/day${currentPage}.mp3`:"music/valentine.mp3";
+  if(!bgm.src.includes(src)){
     bgm.src=src;
     bgm.play().catch(()=>{});
   }
@@ -190,7 +218,33 @@ function showPage(n){
 }
 
 function nextPage(){
- showPage(currentPage+1);
+  /* NAME LOCK */
+  if(currentPage===0){
+    const name=document.getElementById("nameInput").value.trim().toLowerCase();
+    if(name!=="jhansi rani mishra"){
+      alert("This page is only for Jhansi Rani Mishra ❤️");
+      return;
+    }
+  }
+
+  /* DATE LOCK */
+  const page=document.getElementById("page"+currentPage);
+  const date=page.dataset.date;
+  if(date){
+    const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+    const unlock=new Date(date+"T00:00:00");
+    if(now<unlock){
+      document.getElementById("lockMsg").innerText=lockMsgs[currentPage]||"Love is waiting ❤️";
+      document.getElementById("lockPopup").style.display="flex";
+      return;
+    }
+  }
+
+  showPage(currentPage+1);
+}
+
+function closeLock(){
+ document.getElementById("lockPopup").style.display="none";
 }
 
 /* No button escape */
@@ -219,7 +273,7 @@ poemLines.forEach((l,i)=>{
  poemDiv.appendChild(p);
 });
 
-/* Click hearts */
+/* Hearts */
 document.addEventListener("click",e=>{
  const h=document.createElement("div");
  h.className="heart";
@@ -230,7 +284,6 @@ document.addEventListener("click",e=>{
  setTimeout(()=>h.remove(),3000);
 });
 
-/* Background hearts */
 setInterval(()=>{
  const h=document.createElement("div");
  h.className="bg-heart";
