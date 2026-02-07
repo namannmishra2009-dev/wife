@@ -217,7 +217,7 @@ let currentPage=0;
 const bgm=document.getElementById("bgm");
 
 function playMusic(){
-  let src=currentPage<=7?`music/day${currentPage}.mp3`:"music/valentine.mp3";
+  let src=currentPage<=7 ? `music/day${currentPage}.mp3` : "music/valentine.mp3";
   if(!bgm.src.includes(src)){
     bgm.src=src;
     bgm.play().catch(()=>{});
@@ -231,6 +231,7 @@ function showPage(n){
  playMusic();
 }
 
+/* ✅ FIXED DATE LOCK — CHECKS NEXT PAGE */
 function nextPage(){
   /* SILENT NAME LOCK */
   if(currentPage===0){
@@ -238,20 +239,24 @@ function nextPage(){
     if(name!=="jhansi rani mishra") return;
   }
 
-  /* DATE LOCK */
-  const page=document.getElementById("page"+currentPage);
-  const date=page.dataset.date;
-  if(date){
-    const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-    const unlock=new Date(date+"T00:00:00");
-    if(now<unlock){
-      document.getElementById("lockMsg").innerText=lockMsgs[currentPage]||"Love is waiting ❤️";
-      document.getElementById("lockPopup").style.display="flex";
-      return;
+  const next=currentPage+1;
+  const nextPageEl=document.getElementById("page"+next);
+
+  if(nextPageEl){
+    const date=nextPageEl.dataset.date;
+    if(date){
+      const now=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+      const unlock=new Date(date+"T00:00:00");
+      if(now<unlock){
+        document.getElementById("lockMsg").innerText=
+          lockMsgs[next] || "Love is waiting ❤️";
+        document.getElementById("lockPopup").style.display="flex";
+        return;
+      }
     }
   }
 
-  showPage(currentPage+1);
+  showPage(next);
 }
 
 function closeLock(){
