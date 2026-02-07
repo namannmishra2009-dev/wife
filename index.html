@@ -168,9 +168,23 @@ let lockMsgs=[
  "This day belongs only to us ❤️"
 ];
 
+const unlockDates=[
+ null,
+ "2026-02-07",
+ "2026-02-08",
+ "2026-02-09",
+ "2026-02-10",
+ "2026-02-11",
+ "2026-02-12",
+ "2026-02-13",
+ "2026-02-14",
+ "2026-02-14",
+ "2026-02-14"
+];
+
 for(let i=1;i<=7;i++){
  document.write(`
- <div class="page" id="page${i}" data-date="2026-02-${6+i}">
+ <div class="page" id="page${i}" data-date="${unlockDates[i]}">
   <h1>${dayNames[i-1]}</h1>
   <div class="media-box">
     <img src="images/rose.jpg">
@@ -218,13 +232,10 @@ function showPage(n){
 }
 
 function nextPage(){
-  /* NAME LOCK */
+  /* SILENT NAME LOCK */
   if(currentPage===0){
     const name=document.getElementById("nameInput").value.trim().toLowerCase();
-    if(name!=="jhansi rani mishra"){
-      alert("This page is only for Jhansi Rani Mishra ❤️");
-      return;
-    }
+    if(name!=="jhansi rani mishra") return;
   }
 
   /* DATE LOCK */
