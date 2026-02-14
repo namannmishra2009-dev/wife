@@ -222,22 +222,11 @@ for(let i=1;i<=7;i++){
 
 <div class="page" id="page10" data-date="2026-02-14">
   <h1>Our Days 💖</h1>
-
   <div class="media-box" id="gallery"></div>
-
+  <button onclick="nextPage()">Next</button>
 </div>
-/* OUR DAYS GALLERY */
-const gallery=document.getElementById("gallery");
 
-for(let i=1;i<=7;i++){
-  const img=document.createElement("img");
-  img.src=`images/rose${i}.jpg`;
-  img.style.width="100%";
-  img.style.maxWidth="300px";
-  img.style.borderRadius="16px";
-  img.style.marginBottom="12px";
-  gallery.appendChild(img);
-}
+
 <script>
 let currentPage=0;
 const bgm=document.getElementById("bgm");
@@ -254,7 +243,22 @@ function showPage(n){
  document.getElementById("page"+currentPage).classList.remove("active");
  currentPage=n;
  document.getElementById("page"+currentPage).classList.add("active");
- playMusic();
+function loadGallery(){
+  const gallery=document.getElementById("gallery");
+  if(!gallery) return;
+
+  gallery.innerHTML="";
+
+  for(let i=1;i<=7;i++){
+    const img=document.createElement("img");
+    img.src=`images/rose${i}.jpg`;
+    img.style.width="100%";
+    img.style.maxWidth="300px";
+    img.style.borderRadius="16px";
+    img.style.marginBottom="12px";
+    gallery.appendChild(img);
+  }
+} playMusic();
 }
 
 /* ✅ FIXED DATE LOCK — CHECKS NEXT PAGE */
