@@ -248,7 +248,18 @@ function closeLock(){
  document.getElementById("lockPopup").style.display="none";  
 }  
   
-nes=[  
+/* No button escape */  
+document.getElementById("noBtn")?.addEventListener("touchstart",runAway);  
+document.getElementById("noBtn")?.addEventListener("mouseover",runAway);  
+function runAway(){  
+ const b=document.getElementById("noBtn");  
+ b.style.position="absolute";  
+ b.style.left=Math.random()*70+"%";  
+ b.style.top=Math.random()*70+"%";  
+}  
+  
+/* Poem */  
+const poemLines=[  
  "Tumhara naam likhte hi dil thoda sa ruk jaata hai",  
  "Har din tum mujhe thoda aur apna bana leti ho",  
  "Ye sirf Valentine nahi",  
