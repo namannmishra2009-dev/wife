@@ -220,12 +220,38 @@ for(let i=1;i<=7;i++){
   <button onclick="nextPage()">Next</button>
 </div>
 
-<div class="page" id="page10" data-date="2026-02-14">
-  <h1>Our Days 💖</h1>
-  <div class="media-box" id="gallery"></div>
+document.write(`
+<div class="page" id="page${i}" data-date="${unlockDates[i]}">
+  <h1>${dayNames[i-1]}</h1>
+  <div class="media-box">
+     <img src="images/rose${i}.jpg">
+     <img src="images/rose${i}.gif">
+  </div>
   <button onclick="nextPage()">Next</button>
 </div>
+`);
+document.write(`
+<div class="page" id="page${i}" data-date="${unlockDates[i]}">
+  <h1>${dayNames[i-1]}</h1>
 
+  <div class="media-box">
+    ${i === 10 ? `
+      <img src="images/rose1.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+      <img src="images/rose2.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+      <img src="images/rose3.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+      <img src="images/rose4.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+      <img src="images/rose5.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+      <img src="images/rose6.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+      <img src="images/rose7.jpg" style="width:100%;max-width:300px;margin-bottom:10px;">
+    ` : `
+      <img src="images/rose${i}.jpg">
+      <img src="images/rose${i}.gif">
+    `}
+  </div>
+
+  <button onclick="nextPage()">Next</button>
+</div>
+`);
 
 <script>
 let currentPage=0;
